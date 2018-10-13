@@ -20,3 +20,4 @@ app.listen(4000, ()=>{
 
 app.get('/api/inventory', controller.getProducts);
 app.post('/api/inventory', controller.createProduct);
+app.delete('/api/inventory/:id', controller.deleteProduct);

@@ -24,22 +24,24 @@ class Form extends Component {
     eraseInput(){
         this.setState({ name: '', price:0, imgurl:'' })
     }
-    postProduct(){
-        axios.post('/api/inventory').then(res=>{
+    postProduct(name,price,imgurl){
+        axios.post('/api/inventory',{name,price,imgurl}).then(res=>{
             console.log(res)
+
         })
-    }
+        window.location.reload();
+        }
 
     render(){
-        const {eraseInput} = this.state;
+        const {eraseInput, postProduct} = this.state;
         return(
-            <div>
+            <div className="formBox">
                 <div>Form</div>
                 <input onChange={(e)=> this.inputName(e.target.value)} />
                 <input onChange={(e)=> this.inputPrice(e.target.value)} />
                 <input onChange={(e)=> this.inputImg(e.target.value)} />
-                <button className='cancel' onClick={eraseInput}>CANCEL</button>
-                <button className='add' >ADD TO INVENTORY</button>
+                <button className='cancel' onClick={()=> this.eraseInput()}>CANCEL</button>
+                <button className='add' onClick={()=>{this.postProduct(this.state.name, this.state.price, this.state.imgurl)}}>ADD TO INVENTORY</button>
             </div>
         )
     }
